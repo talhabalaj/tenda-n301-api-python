@@ -7,7 +7,7 @@ class TendaError(Exception):
     pass
 
 
-class TendaManager:
+class TendaManager(object):
 
     __AUTH_URL = 'http://{}/login/Auth'
     __GET_QOS = 'http://{}/goform/getQos'
