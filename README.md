@@ -1,6 +1,12 @@
 # tenda-n301-api
 Unofficial Tenda Model N301 API
 
+Install it using:
+```
+pip install tenda-n301-python-api
+```
+
+These are the function currently available.
 
 ```
 import tendan301api
