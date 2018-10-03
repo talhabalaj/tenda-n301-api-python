@@ -23,12 +23,11 @@ class TendaManager(object):
         self.do_login()
 
     def __encodeB64(self, string):
-        return base64.encodebytes(string.encode()).decode("utf-8")[0:-1]
+        return base64.b64encode(string.encode()).decode("utf-8")
 
     def do_login(self):
         form_data = {
             'password': self.__encodeB64(self.PASSWORD)
-
         }
         try:
             response = requests.post(
