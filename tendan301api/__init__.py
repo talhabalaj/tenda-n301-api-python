@@ -2,10 +2,11 @@ import requests
 import base64
 import json
 
+from requests.api import request
+
 
 class TendaError(Exception):
     pass
-
 
 class TendaManager(object):
 
@@ -13,6 +14,7 @@ class TendaManager(object):
     __GET_QOS = 'http://{}/goform/getQos'
     __SET_QOS = 'http://{}/goform/setQos'
     __REBOOT_URL = 'http://{}/goform/sysReboot'
+    __WIFI_SETTINGS_URL = 'http://{}/goform/getWifi'
     __COOKIE = ''
 
     def __init__(self, IP, PASSWORD):
@@ -50,7 +52,7 @@ class TendaManager(object):
         else:
             raise TendaError('Authentication Failed')
 
-    def get_online_devices(self):
+    def get_online_devices_with_stats(self):
         request_headers = self.__bake_requests()
 
         params = {
@@ -62,7 +64,7 @@ class TendaManager(object):
 
         if response.status_code == 302:
             self.do_login()
-            return self.get_online_devices()
+            return self.get_online_devices_with_stats()
         else:
             return response.json()['onlineList']
         
@@ -73,7 +75,7 @@ class TendaManager(object):
 
         request_headers = self.__bake_requests()
 
-        online_list = self.get_online_devices()
+        online_list = self.get_online_devices_with_stats()
         black_list = self.get_black_list()
         qos_list = ''
 
@@ -134,7 +136,7 @@ class TendaManager(object):
 
         request_headers = self.__bake_requests()
 
-        online_list = self.get_online_devices()
+        online_list = self.get_online_devices_with_stats()
         black_list = self.get_black_list()
         qos_list = ''
 
@@ -171,6 +173,24 @@ class TendaManager(object):
         if err == '0':
             return True
 
+    def get_wifi_settings(self):
+        request_headers = self.__bake_requests()
+
+        form_data = {
+            'modules': 'wifiAgvCfg, wifiTime'
+        }
+
+        response = requests.post(
+            self.__REBOOT_URL, data=form_data, headers=request_headers, allow_redirects=False)
+
+        if response.status_code == 302:
+            self.do_login()
+            return self.reboot()
+        else:
+            err = response.json()['errCode']
+            if err == '0':
+                return True
+
     def reboot(self):
         request_headers = self.__bake_requests()
 
@@ -180,11 +200,11 @@ class TendaManager(object):
         }
 
         response = requests.post(
-            self.__REBOOT_URL, data=form_data, headers=request_headers, allow_redirects=False)
+            self.__WIFI_SETTINGS_URL, data=form_data, headers=request_headers, allow_redirects=False)
 
         if response.status_code == 302:
             self.do_login()
-            return self.reboot()
+            return self.get_wifi_settings()
         else:
             err = response.json()['errCode']
             if err == '0':

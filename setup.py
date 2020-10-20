@@ -4,11 +4,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="tenda-n301-python-api",
-    version="0.0.5",
+    name="tenda",
+    version="0.0.6",
     author="Talha Balaj",
     author_email="talhabalaj@gmail.com",
-    description="Unofficial Tenda Model N301 Python API",
+    description="Unofficial Tenda Model N301 API",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/talhabalaj/tenda-n301-api-python",

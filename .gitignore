@@ -1,3 +1,4 @@
 build
 dist 
 tenda_n301_python_api.egg-info
+test.py
