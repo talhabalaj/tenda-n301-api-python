@@ -1,4 +1,4 @@
-from tendan301api import TendaManager
+from tenda import TendaManager
 
 
 manager = TendaManager('<ip_address>', '<your_password>')
