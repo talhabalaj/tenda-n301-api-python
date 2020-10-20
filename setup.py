@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="tenda",
-    version="0.0.7",
+    version="0.0.8",
     author="Talha Balaj",
     author_email="talhabalaj@gmail.com",
     description="Unofficial Tenda Model N301 API",

@@ -1,17 +1,17 @@
-# tenda-n301-api
+# tenda
 Unofficial Tenda Model N301 API
 
 Install it using:
 ```s
-$ pip install tenda-n301-python-api
+$ pip install tenda
 ```
 
 These are the function currently available.
 
 ```python
-import tendan301api
+import tenda
 
-manager = tendan301api.TendaManager('<ip_address>', '<your_password>')
+manager = tenda.TendaManager('<ip_address>', '<your_password>')
 
 # Get QOS
 online_devices = manager.get_online_devices()
