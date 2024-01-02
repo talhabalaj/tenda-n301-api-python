@@ -14,7 +14,7 @@ import tenda
 manager = tenda.TendaManager('<ip_address>', '<your_password>')
 
 # Get QOS
-online_devices = manager.get_online_devices()
+online_devices = manager.get_online_devices_with_stats()
 blocked_devices = manager.get_black_list()
 
 # Set QOS
